@@ -220,7 +220,7 @@ button = widgets.Button(description = "Plot Test Data")
 
 # # Lets Visualize this in 2-D
 
-# In[156]:
+# In[184]:
 
 
 display(button)
@@ -228,8 +228,50 @@ interact(threshold,f=(-1000,10,10));
 button.on_click(showTest);
 
 
-# In[108]:
+# # 97.4% Accuracy
+
+# # Machine Learning
+
+# In[ ]:
 
 
-dataOITraining.shape
+from sklearn import svm
+from sklearn import preprocessing
+from sklearn.svm import SVC
+from sklearn.ensemble import BaggingClassifier, RandomForestClassifier
+from sklearn.multiclass import OneVsRestClassifier
+
+
+# In[163]:
+
+
+clf = RandomForestClassifier(min_samples_leaf=10)
+clf.fit(X, y)
+Prediction= clf.predict(TestData)
+
+
+# In[180]:
+
+
+def MLaccuracy():
+    falsepos= 0
+    accuracy= 1-np.logical_xor(Prediction,y)
+    similarsum= np.sum(accuracy)
+    similarity_perc= 1.0*similarsum/len(Prediction)
+    falsehood= Prediction- y
+    falsehood
+    for i in xrange(0, len(falsehood)):
+        if falsehood[i]>0:
+            falsepos=falsepos+1
+
+    display("Accuracy")        
+    display(similarity_perc *100)
+    display("False Positives")
+    display(falsepos/float(len(accuracy)))
+
+
+# In[181]:
+
+
+MLaccuracy()
 
