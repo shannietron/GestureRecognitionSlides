@@ -33,25 +33,32 @@ mpl.rcParams['agg.path.chunksize'] = 10000
 #  <center>![](images/orthotic2.png)</center> 
 #  
 
-# In[13]:
+# In[39]:
 
 
 n_timesteps = 150
 t = np.linspace(0, 1, n_timesteps)
 
 data = []
+dataOI = []
+dataUD = []
 
 for i in range (1,81):
     data.append(np.genfromtxt('OI/OI'+str(i)+'.csv', dtype=float, delimiter=','))
-    
+    dataOI.append(np.genfromtxt('OI/OI'+str(i)+'.csv', dtype=float, delimiter=','))
 
 for i in range (1,81):
     data.append(np.genfromtxt('UD/UD'+str(i)+'.csv', dtype=float, delimiter=','))
+    dataUD.append(np.genfromtxt('UD/UD'+str(i)+'.csv', dtype=float, delimiter=','))
 
 sensors = {'Accelx':0,'Accely':1,'Accelz':2,'Magnetx':3,'Magnety':4,'Magnetz':5,'Gyrox':6,'Gyroy':7,'Gyroz':8}
 sensorLabel = ['Accelx, G','Accely, G','Accelz, G','Magnetx, Gauss','Magnety, Gauss','Magnetz, Gauss','Gyrox, rad/s','Gyroy, rad/s','Gyroz, rad/s']
 
 data = np.array(data)
+dataOI = np.array(dataOI)
+dataUD = np.array(dataUD)
+dataOI = dataOI.astype(float)
+dataUD = dataUD.astype(float)
 
 
 # In[14]:
@@ -73,10 +80,37 @@ def pltsensor(f):
 interact(pltsensor,f=sensors)
 
 
-# In[21]:
+# In[40]:
 
 
 data = np.delete(data,[0,1,2,5,7,9,10,11], 2)
+dataOI = np.delete(dataOI,[0,1,2,5,7,9,10,11], 2)
+dataUD = np.delete(dataUD,[0,1,2,5,7,9,10,11], 2)
+#update labels
+sensors = {'Magnetx':0,'Magnety':1,'Gyrox':2,'Gyroz':3}
+sensorLabel = ['Magnetx, Gauss','Magnety, Gauss','Gyrox, rad/s','Gyroz, rad/s']
+
+
+# In[46]:
+
+
+def kalman(f):
+    plt.close()
+    kf = KalmanFilter(transition_matrices=np.array([[1, 1], [0, 1]]),transition_covariance=0.01 * np.eye(2))
+    observations = dataUD[0][:,f]
+    states_pred = kf.em(observations).smooth(observations)[0]
+    obs_scatter = plt.scatter(t, observations, marker='x', color='b',
+                             label='observations')
+    position_line = plt.plot(t, states_pred[:, 0],
+                            linestyle='-', marker='o', color='r',
+                            label='position est.')
+    plt.legend()
+
+
+# In[47]:
+
+
+interact(kalman,f=sensors)
 
 
 # In[22]:

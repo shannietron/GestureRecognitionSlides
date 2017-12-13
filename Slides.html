@@ -15037,25 +15037,32 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">n_timesteps</span> <span class="o">=</span> <span class="mi">150</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_timesteps</span><span class="p">)</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">dataOI</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">dataUD</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">81</span><span class="p">):</span>
     <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s1">&#39;OI/OI&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
-    
+    <span class="n">dataOI</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s1">&#39;OI/OI&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">81</span><span class="p">):</span>
     <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s1">&#39;UD/UD&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
+    <span class="n">dataUD</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s1">&#39;UD/UD&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">))</span>
 
 <span class="n">sensors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Accelx&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;Accely&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Accelz&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Magnetx&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;Magnety&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;Magnetz&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;Gyrox&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span><span class="s1">&#39;Gyroy&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span><span class="s1">&#39;Gyroz&#39;</span><span class="p">:</span><span class="mi">8</span><span class="p">}</span>
 <span class="n">sensorLabel</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Accelx, G&#39;</span><span class="p">,</span><span class="s1">&#39;Accely, G&#39;</span><span class="p">,</span><span class="s1">&#39;Accelz, G&#39;</span><span class="p">,</span><span class="s1">&#39;Magnetx, Gauss&#39;</span><span class="p">,</span><span class="s1">&#39;Magnety, Gauss&#39;</span><span class="p">,</span><span class="s1">&#39;Magnetz, Gauss&#39;</span><span class="p">,</span><span class="s1">&#39;Gyrox, rad/s&#39;</span><span class="p">,</span><span class="s1">&#39;Gyroy, rad/s&#39;</span><span class="p">,</span><span class="s1">&#39;Gyroz, rad/s&#39;</span><span class="p">]</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">dataOI</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataOI</span><span class="p">)</span>
+<span class="n">dataUD</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dataUD</span><span class="p">)</span>
+<span class="n">dataOI</span> <span class="o">=</span> <span class="n">dataOI</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">dataUD</span> <span class="o">=</span> <span class="n">dataUD</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -15109,10 +15116,10 @@ div#notebook {
 
  
  
-<div id="65cf692f-6889-4238-955e-5f1f1235b9cc"></div>
+<div id="06edfad5-d15d-43f3-b12b-0ecdac02a9b8"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#65cf692f-6889-4238-955e-5f1f1235b9cc');
+var element = $('#06edfad5-d15d-43f3-b12b-0ecdac02a9b8');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "39a5a84e898940ca9bde3ec5b98625aa", "version_minor": 0, "version_major": 2}
@@ -15140,13 +15147,96 @@ var element = $('#65cf692f-6889-4238-955e-5f1f1235b9cc');
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">data</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">dataOI</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">dataOI</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">dataUD</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">dataUD</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1">#update labels</span>
+<span class="n">sensors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Magnetx&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;Magnety&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Gyrox&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Gyroz&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
+<span class="n">sensorLabel</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Magnetx, Gauss&#39;</span><span class="p">,</span><span class="s1">&#39;Magnety, Gauss&#39;</span><span class="p">,</span><span class="s1">&#39;Gyrox, rad/s&#39;</span><span class="p">,</span><span class="s1">&#39;Gyroz, rad/s&#39;</span><span class="p">]</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">kalman</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">kf</span> <span class="o">=</span> <span class="n">KalmanFilter</span><span class="p">(</span><span class="n">transition_matrices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span><span class="n">transition_covariance</span><span class="o">=</span><span class="mf">0.01</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">observations</span> <span class="o">=</span> <span class="n">dataUD</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="n">f</span><span class="p">]</span>
+    <span class="n">states_pred</span> <span class="o">=</span> <span class="n">kf</span><span class="o">.</span><span class="n">em</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">observations</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">obs_scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">observations</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+                             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;observations&#39;</span><span class="p">)</span>
+    <span class="n">position_line</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">states_pred</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                            <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
+                            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;position est.&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">interact</span><span class="p">(</span><span class="n">kalman</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="n">sensors</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="63da60a2-3f90-4d6e-8532-c5daebfc2461"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#63da60a2-3f90-4d6e-8532-c5daebfc2461');
+</script>
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "11c7f6500002420e911a4c74b6651085", "version_minor": 0, "version_major": 2}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[47]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;function __main__.kalman&gt;</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -15195,10 +15285,10 @@ var element = $('#65cf692f-6889-4238-955e-5f1f1235b9cc');
 
 
 
-<div id="4c9c1bbb-3e24-4825-9fef-47be7042cacc"></div>
+<div id="66a264fb-ce6f-4f22-884a-c437c61a572f"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#4c9c1bbb-3e24-4825-9fef-47be7042cacc');
+var element = $('#66a264fb-ce6f-4f22-884a-c437c61a572f');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16036,10 +16126,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="a86006dd-207d-4406-bfaa-be31b2b741ff"></div>
+<div id="0553d82b-a6cb-47c6-b3a7-8550dd283902"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a86006dd-207d-4406-bfaa-be31b2b741ff');
+var element = $('#0553d82b-a6cb-47c6-b3a7-8550dd283902');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
