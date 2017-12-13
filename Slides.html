@@ -15015,7 +15015,7 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Gesture-Recognition-Of-An-Arm-Using-A-9-DOF-Inertial-Measurement-Unit">Gesture Recognition Of An Arm Using A 9-DOF Inertial Measurement Unit<a class="anchor-link" href="#Gesture-Recognition-Of-An-Arm-Using-A-9-DOF-Inertial-Measurement-Unit">&#182;</a></h1><p><br></p>
-<center>Shanmugam Muruga Palaniappan</center>
+<center>Shanmugam MPl</center>
 </div>
 </div>
 </div>
@@ -15037,7 +15037,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
+<div class="prompt input_prompt">In&nbsp;[197]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">n_timesteps</span> <span class="o">=</span> <span class="mi">150</span>
@@ -15076,7 +15076,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="prompt input_prompt">In&nbsp;[226]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">dataOITraining</span> <span class="o">=</span> <span class="n">dataOI</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataOI</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -15103,7 +15103,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
+<div class="prompt input_prompt">In&nbsp;[199]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -15131,7 +15131,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="prompt input_prompt">In&nbsp;[187]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">interact</span><span class="p">(</span><span class="n">pltsensor</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="n">sensorsAll</span><span class="p">);</span>
@@ -15155,13 +15155,13 @@ div#notebook {
 
  
  
-<div id="dd36fbe1-a139-4b2c-86fb-f3b323d14ee3"></div>
+<div id="01321451-5502-4a57-828a-375dd32aeb74"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#dd36fbe1-a139-4b2c-86fb-f3b323d14ee3');
+var element = $('#01321451-5502-4a57-828a-375dd32aeb74');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "4b7d6fcc24124e6e8580fb4baed90a97", "version_minor": 0, "version_major": 2}
+{"model_id": "88b334b24be14c609215d310ba279b26", "version_minor": 0, "version_major": 2}
 </script>
 </div>
 
@@ -15173,7 +15173,7 @@ var element = $('#dd36fbe1-a139-4b2c-86fb-f3b323d14ee3');
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[82]:</div>
+<div class="prompt input_prompt">In&nbsp;[200]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">data</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>
@@ -15191,20 +15191,23 @@ var element = $('#dd36fbe1-a139-4b2c-86fb-f3b323d14ee3');
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[83]:</div>
+<div class="prompt input_prompt">In&nbsp;[220]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">kalman</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">kalman</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">UD</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">kf</span> <span class="o">=</span> <span class="n">KalmanFilter</span><span class="p">(</span><span class="n">transition_matrices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span><span class="n">transition_covariance</span><span class="o">=</span><span class="mf">0.01</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">observations</span> <span class="o">=</span> <span class="n">dataUD</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="n">f</span><span class="p">]</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">UD</span><span class="o">==</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">observations</span> <span class="o">=</span> <span class="n">dataUD</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="n">x</span><span class="p">]</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">UD</span><span class="o">==</span><span class="bp">False</span><span class="p">):</span>
+        <span class="n">observations</span> <span class="o">=</span> <span class="n">dataOI</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,</span><span class="n">x</span><span class="p">]</span>
     <span class="n">states_pred</span> <span class="o">=</span> <span class="n">kf</span><span class="o">.</span><span class="n">em</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">observations</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">obs_scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">observations</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
                              <span class="n">label</span><span class="o">=</span><span class="s1">&#39;observations&#39;</span><span class="p">)</span>
     <span class="n">position_line</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">states_pred</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
                             <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span>
                             <span class="n">label</span><span class="o">=</span><span class="s1">&#39;position est.&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">sensorLabel</span><span class="p">[</span><span class="n">f</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">sensorLabel</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time, seconds&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
@@ -15224,10 +15227,24 @@ var element = $('#dd36fbe1-a139-4b2c-86fb-f3b323d14ee3');
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[84]:</div>
+<div class="prompt input_prompt">In&nbsp;[221]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">interact</span><span class="p">(</span><span class="n">kalman</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="n">sensors</span><span class="p">);</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">UD</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">UD</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[222]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">interact</span><span class="p">(</span><span class="n">kalman</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">sensors</span><span class="p">,</span><span class="n">UD</span><span class="o">=</span><span class="bp">True</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -15248,13 +15265,13 @@ var element = $('#dd36fbe1-a139-4b2c-86fb-f3b323d14ee3');
 
  
  
-<div id="69a6692a-27dc-42ea-bfd5-a0735823571c"></div>
+<div id="8a62c25c-8040-40e7-95fb-bf1409211dcb"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#69a6692a-27dc-42ea-bfd5-a0735823571c');
+var element = $('#8a62c25c-8040-40e7-95fb-bf1409211dcb');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "b624a49f947749ada1fb6a859e475503", "version_minor": 0, "version_major": 2}
+{"model_id": "94d2f00c3d304cdfab9c83a29c5ee273", "version_minor": 0, "version_major": 2}
 </script>
 </div>
 
@@ -15323,10 +15340,10 @@ var element = $('#69a6692a-27dc-42ea-bfd5-a0735823571c');
 
 
 
-<div id="7c8d651d-fb10-47da-bf32-212b4ff7de56"></div>
+<div id="ae89d428-a2e5-4834-8775-154cde6161aa"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#7c8d651d-fb10-47da-bf32-212b4ff7de56');
+var element = $('#ae89d428-a2e5-4834-8775-154cde6161aa');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16164,10 +16181,10 @@ if (IPython.notebook.kernel != null) {
 
 
 
-<div id="1a7c23ac-e262-4b66-9fd6-81447005b94d"></div>
+<div id="afb1f97f-da48-4440-aa66-558f1e2653f4"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1a7c23ac-e262-4b66-9fd6-81447005b94d');
+var element = $('#afb1f97f-da48-4440-aa66-558f1e2653f4');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16961,7 +16978,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[155]:</div>
+<div class="prompt input_prompt">In&nbsp;[227]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">threshold</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
@@ -17001,7 +17018,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[184]:</div>
+<div class="prompt input_prompt">In&nbsp;[229]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
@@ -17027,13 +17044,13 @@ if (IPython.notebook.kernel != null) {
 
  
  
-<div id="8d1af423-5e16-48eb-9839-f68eb50d43a7"></div>
+<div id="77c7d565-ee34-4208-9ed4-f9cba32f238c"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#8d1af423-5e16-48eb-9839-f68eb50d43a7');
+var element = $('#77c7d565-ee34-4208-9ed4-f9cba32f238c');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "858ddb0675d64881b6a228deca81315c", "version_minor": 0, "version_major": 2}
+{"model_id": "527c977b766a4923ab810fd24f58a265", "version_minor": 0, "version_major": 2}
 </script>
 </div>
 
@@ -17049,13 +17066,13 @@ var element = $('#8d1af423-5e16-48eb-9839-f68eb50d43a7');
 
  
  
-<div id="09f77518-3b0a-4234-a361-5d4f94445353"></div>
+<div id="6fda77f3-6d98-41fe-affa-8a06f8f613a9"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#09f77518-3b0a-4234-a361-5d4f94445353');
+var element = $('#6fda77f3-6d98-41fe-affa-8a06f8f613a9');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "22eb3cb7ab554bcbba261071a6650fc0", "version_minor": 0, "version_major": 2}
+{"model_id": "7a7082d9133f4336994f6fcb406e2a1a", "version_minor": 0, "version_major": 2}
 </script>
 </div>
 
@@ -17097,6 +17114,14 @@ var element = $('#09f77518-3b0a-4234-a361-5d4f94445353');
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Random-Forest-Classifier">Random Forest Classifier<a class="anchor-link" href="#Random-Forest-Classifier">&#182;</a></h1><center>![](images/randForest.png)</center>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">

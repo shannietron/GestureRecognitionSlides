@@ -25,7 +25,7 @@ mpl.rcParams['agg.path.chunksize'] = 10000
 
 # # Gesture Recognition Of An Arm Using A 9-DOF Inertial Measurement Unit
 # <br>
-# <center>Shanmugam Muruga Palaniappan</center>
+# <center>Shanmugam MPl</center>
 
 #  <center>![](images/orthotic1.png)</center> 
 #  
@@ -33,7 +33,7 @@ mpl.rcParams['agg.path.chunksize'] = 10000
 #  <center>![](images/orthotic2.png)</center> 
 #  
 
-# In[78]:
+# In[197]:
 
 
 n_timesteps = 150
@@ -65,7 +65,7 @@ dataOI = dataOI.astype(float)
 dataUD = dataUD.astype(float)
 
 
-# In[98]:
+# In[226]:
 
 
 dataOITraining = dataOI[0:(len(dataOI)/2)-1]
@@ -85,7 +85,7 @@ y = np.concatenate((OI,UD),axis=0)
 Testy= np.concatenate((OI,UD),axis=0) #labels are the same for test and training (first bits are OI and rest are UD)
 
 
-# In[79]:
+# In[199]:
 
 
 def f(x):
@@ -100,13 +100,13 @@ def pltsensor(f):
 
 # # Pick channels of interest for classification
 
-# In[81]:
+# In[187]:
 
 
 interact(pltsensor,f=sensorsAll);
 
 
-# In[82]:
+# In[200]:
 
 
 data = np.delete(data,[0,1,2,5,7,9,10,11], 2)
@@ -117,30 +117,41 @@ sensors = {'Magnetx':0,'Magnety':1,'Gyrox':2,'Gyroz':3}
 sensorLabel = ['Magnetx, Gauss','Magnety, Gauss','Gyrox, deg/s','Gyroz, deg/s']
 
 
-# In[83]:
+# In[220]:
 
 
-def kalman(f):
+def kalman(x,UD):
     plt.close()
     kf = KalmanFilter(transition_matrices=np.array([[1, 1], [0, 1]]),transition_covariance=0.01 * np.eye(2))
-    observations = dataUD[0][:,f]
+    if(UD==True):
+        observations = dataUD[0][:,x]
+    if(UD==False):
+        observations = dataOI[0][:,x]
     states_pred = kf.em(observations).smooth(observations)[0]
     obs_scatter = plt.scatter(t, observations, marker='x', color='b',
                              label='observations')
     position_line = plt.plot(t, states_pred[:, 0],
                             linestyle='-', marker='o', color='r',
                             label='position est.')
-    plt.ylabel(sensorLabel[f])
+    plt.ylabel(sensorLabel[x])
     plt.xlabel('Time, seconds')
     plt.legend()
 
 
 # # Kalman Filtering
 
-# In[84]:
+# In[221]:
 
 
-interact(kalman,f=sensors);
+def g(x, UD):
+    return (x, UD)
+
+
+# In[222]:
+
+
+
+interact(kalman,x=sensors,UD=True);
 
 
 # # Principal Component Analysis
@@ -193,7 +204,7 @@ plt.plot(np.arange(len(vec2)),vec2);
 plt.title('Largest 2 Eigenvectors');
 
 
-# In[155]:
+# In[227]:
 
 
 def threshold(f):
@@ -220,7 +231,7 @@ button = widgets.Button(description = "Plot Test Data")
 
 # # Lets Visualize this in 2-D
 
-# In[184]:
+# In[229]:
 
 
 display(button)
@@ -241,6 +252,9 @@ from sklearn.svm import SVC
 from sklearn.ensemble import BaggingClassifier, RandomForestClassifier
 from sklearn.multiclass import OneVsRestClassifier
 
+
+# # Random Forest Classifier
+#  <center>![](images/randForest.png)</center>
 
 # In[163]:
 
