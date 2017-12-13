@@ -33,7 +33,7 @@ mpl.rcParams['agg.path.chunksize'] = 10000
 #  <center>![](images/orthotic2.png)</center> 
 #  
 
-# In[67]:
+# In[78]:
 
 
 n_timesteps = 150
@@ -53,7 +53,7 @@ for i in range (1,81):
 
 
 sensors = {'Accelx':0,'Accely':1,'Accelz':2,'Magnetx':3,'Magnety':4,'Magnetz':5,'Gyrox':6,'Gyroy':7,'Gyroz':8}
-sensorLabel = ['Accelx, G','Accely, G','Accelz, G','Magnetx, Gauss','Magnety, Gauss','Magnetz, Gauss','Gyrox, /s','Gyroy, rad/s','Gyroz, rad/s']
+sensorLabel = ['Accelx, G','Accely, G','Accelz, G','Magnetx, Gauss','Magnety, Gauss','Magnetz, Gauss','Gyrox, deg/s','Gyroy, deg/s','Gyroz, deg/s']
 
 sensorsAll = sensors
 sensorAllLabel=sensorLabel
@@ -65,7 +65,27 @@ dataOI = dataOI.astype(float)
 dataUD = dataUD.astype(float)
 
 
-# In[68]:
+# In[98]:
+
+
+dataOITraining = dataOI[0:(len(dataOI)/2)-1]
+dataUDTraining = dataUD[0:(len(dataUD)/2)-1]
+dataOITest = dataOI[(len(dataOI)/2):-1]
+dataUDTest = dataUD[(len(dataUD)/2):-1]
+
+X = np.concatenate((dataOITraining,dataUDTraining),axis=0) #putting them on top of each other
+X = X.reshape(len(X),-1)
+
+TestData = np.concatenate((dataOITest,dataUDTest),axis=0) #putting them on top of each other
+TestData = TestData.reshape(len(TestData),-1)
+
+OI = np.zeros(dataOITraining.shape[0])
+UD = np.ones(dataUDTraining.shape[0])
+y = np.concatenate((OI,UD),axis=0)
+Testy= np.concatenate((OI,UD),axis=0) #labels are the same for test and training (first bits are OI and rest are UD)
+
+
+# In[79]:
 
 
 def f(x):
@@ -78,13 +98,15 @@ def pltsensor(f):
     plt.show();
 
 
-# In[69]:
+# # Pick channels of interest for classification
+
+# In[81]:
 
 
 interact(pltsensor,f=sensorsAll);
 
 
-# In[70]:
+# In[82]:
 
 
 data = np.delete(data,[0,1,2,5,7,9,10,11], 2)
@@ -92,10 +114,10 @@ dataOI = np.delete(dataOI,[0,1,2,5,7,9,10,11], 2)
 dataUD = np.delete(dataUD,[0,1,2,5,7,9,10,11], 2)
 #update labels
 sensors = {'Magnetx':0,'Magnety':1,'Gyrox':2,'Gyroz':3}
-sensorLabel = ['Magnetx, Gauss','Magnety, Gauss','Gyrox, rad/s','Gyroz, rad/s']
+sensorLabel = ['Magnetx, Gauss','Magnety, Gauss','Gyrox, deg/s','Gyroz, deg/s']
 
 
-# In[71]:
+# In[83]:
 
 
 def kalman(f):
@@ -113,32 +135,44 @@ def kalman(f):
     plt.legend()
 
 
-# In[72]:
+# # Kalman Filtering
+
+# In[84]:
 
 
 interact(kalman,f=sensors);
 
 
-# In[22]:
+# # Principal Component Analysis
+# ## Dimensionality Reduction
+
+# In[99]:
 
 
-dataflat = data.reshape(len(data),150*data.shape[2])
-dataflat = dataflat.astype(float)
+# dataflat = data.reshape(len(data),150*data.shape[2])
+# dataflat = dataflat.astype(float)
+
+# dataflatmat = np.matrix(dataflat)
+
+#cov = (1.0/(150*data.shape[2]))*(dataflatmat.T*dataflatmat)
+
+dataflat = X.astype(float)
 
 dataflatmat = np.matrix(dataflat)
 
 cov = (1.0/(150*data.shape[2]))*(dataflatmat.T*dataflatmat)
 
 
-# In[60]:
+# In[100]:
 
 
 plt.close()
 plt.imshow(cov, cmap='seismic', interpolation='nearest');
+plt.title('Covariance');
 plt.colorbar();
 
 
-# In[61]:
+# In[101]:
 
 
 w,v = np.linalg.eig(cov)
@@ -146,15 +180,56 @@ sortedw =np.sort(w)
 max1 = sortedw[len(sortedw)-1] #eigenvector corresponding to the largest eigenvalue
 max2 = sortedw[len(sortedw)-2] #eigenvector corresponding to the second largest eigenvalue
 
-
 vec1 = (v[:,0])
 vec2 = (v[:,1])
 
 
-# In[62]:
+# In[102]:
 
 
 plt.close()
 plt.plot(np.arange(len(vec1)),vec1);
 plt.plot(np.arange(len(vec2)),vec2);
+plt.title('Largest 2 Eigenvectors');
+
+
+# In[155]:
+
+
+def threshold(f):
+    plt.close()
+    akOI = (vec1.reshape(-1)) * dataOITraining.reshape(len(dataOITraining),-1).T
+    bkOI = (vec2.reshape(-1)) * dataOITraining.reshape(len(dataOITraining),-1).T
+    plt.scatter([akOI],[bkOI],color='magenta');
+    
+    akUD = (vec1.reshape(-1)) * dataUDTraining.reshape(len(dataUDTraining),-1).T
+    bkUD = (vec2.reshape(-1)) * dataUDTraining.reshape(len(dataUDTraining),-1).T
+    plt.scatter([akUD],[bkUD],color='cyan');
+    plt.axvline(f)
+    
+def showTest(b):
+    aktestOI = (vec1.reshape(-1)) * dataOITest.reshape(len(dataOITest),-1).T
+    bktestOI = (vec2.reshape(-1)) * dataOITest.reshape(len(dataOITest),-1).T
+    plt.scatter([aktestOI],[bktestOI],color='r');
+    aktestUD = (vec1.reshape(-1)) * dataUDTest.reshape(len(dataUDTest),-1).T
+    bktestUD = (vec2.reshape(-1)) * dataUDTest.reshape(len(dataUDTest),-1).T
+    plt.scatter([aktestUD],[bktestUD],color='b');
+
+button = widgets.Button(description = "Plot Test Data")
+
+
+# # Lets Visualize this in 2-D
+
+# In[156]:
+
+
+display(button)
+interact(threshold,f=(-1000,10,10));
+button.on_click(showTest);
+
+
+# In[108]:
+
+
+dataOITraining.shape
 
