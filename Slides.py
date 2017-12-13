@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[12]:
+# In[63]:
 
 
 get_ipython().magic(u'matplotlib notebook')
@@ -33,7 +33,7 @@ mpl.rcParams['agg.path.chunksize'] = 10000
 #  <center>![](images/orthotic2.png)</center> 
 #  
 
-# In[39]:
+# In[67]:
 
 
 n_timesteps = 150
@@ -51,9 +51,13 @@ for i in range (1,81):
     data.append(np.genfromtxt('UD/UD'+str(i)+'.csv', dtype=float, delimiter=','))
     dataUD.append(np.genfromtxt('UD/UD'+str(i)+'.csv', dtype=float, delimiter=','))
 
-sensors = {'Accelx':0,'Accely':1,'Accelz':2,'Magnetx':3,'Magnety':4,'Magnetz':5,'Gyrox':6,'Gyroy':7,'Gyroz':8}
-sensorLabel = ['Accelx, G','Accely, G','Accelz, G','Magnetx, Gauss','Magnety, Gauss','Magnetz, Gauss','Gyrox, rad/s','Gyroy, rad/s','Gyroz, rad/s']
 
+sensors = {'Accelx':0,'Accely':1,'Accelz':2,'Magnetx':3,'Magnety':4,'Magnetz':5,'Gyrox':6,'Gyroy':7,'Gyroz':8}
+sensorLabel = ['Accelx, G','Accely, G','Accelz, G','Magnetx, Gauss','Magnety, Gauss','Magnetz, Gauss','Gyrox, /s','Gyroy, rad/s','Gyroz, rad/s']
+
+sensorsAll = sensors
+sensorAllLabel=sensorLabel
+dataAll = data[0]
 data = np.array(data)
 dataOI = np.array(dataOI)
 dataUD = np.array(dataUD)
@@ -61,26 +65,26 @@ dataOI = dataOI.astype(float)
 dataUD = dataUD.astype(float)
 
 
-# In[14]:
+# In[68]:
 
 
 def f(x):
     return x
 def pltsensor(f):
     plt.close()
-    plt.plot(t, data[0,:,f]);
-    plt.ylabel(sensorLabel[f])
-    plt.xlabel('Time, seconds')
-    plt.show()
+    plt.plot(t, dataAll[:,f]);
+    plt.ylabel(sensorAllLabel[f]);
+    plt.xlabel('Time, seconds');
+    plt.show();
 
 
-# In[15]:
+# In[69]:
 
 
-interact(pltsensor,f=sensors)
+interact(pltsensor,f=sensorsAll);
 
 
-# In[40]:
+# In[70]:
 
 
 data = np.delete(data,[0,1,2,5,7,9,10,11], 2)
@@ -91,7 +95,7 @@ sensors = {'Magnetx':0,'Magnety':1,'Gyrox':2,'Gyroz':3}
 sensorLabel = ['Magnetx, Gauss','Magnety, Gauss','Gyrox, rad/s','Gyroz, rad/s']
 
 
-# In[52]:
+# In[71]:
 
 
 def kalman(f):
@@ -109,10 +113,10 @@ def kalman(f):
     plt.legend()
 
 
-# In[53]:
+# In[72]:
 
 
-interact(kalman,f=sensors)
+interact(kalman,f=sensors);
 
 
 # In[22]:
@@ -126,7 +130,7 @@ dataflatmat = np.matrix(dataflat)
 cov = (1.0/(150*data.shape[2]))*(dataflatmat.T*dataflatmat)
 
 
-# In[23]:
+# In[60]:
 
 
 plt.close()
@@ -134,7 +138,7 @@ plt.imshow(cov, cmap='seismic', interpolation='nearest');
 plt.colorbar();
 
 
-# In[19]:
+# In[61]:
 
 
 w,v = np.linalg.eig(cov)
@@ -147,7 +151,7 @@ vec1 = (v[:,0])
 vec2 = (v[:,1])
 
 
-# In[20]:
+# In[62]:
 
 
 plt.close()
