@@ -91,7 +91,7 @@ sensors = {'Magnetx':0,'Magnety':1,'Gyrox':2,'Gyroz':3}
 sensorLabel = ['Magnetx, Gauss','Magnety, Gauss','Gyrox, rad/s','Gyroz, rad/s']
 
 
-# In[46]:
+# In[52]:
 
 
 def kalman(f):
@@ -104,10 +104,12 @@ def kalman(f):
     position_line = plt.plot(t, states_pred[:, 0],
                             linestyle='-', marker='o', color='r',
                             label='position est.')
+    plt.ylabel(sensorLabel[f])
+    plt.xlabel('Time, seconds')
     plt.legend()
 
 
-# In[47]:
+# In[53]:
 
 
 interact(kalman,f=sensors)
