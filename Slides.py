@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[12]:
 
 
 get_ipython().magic(u'matplotlib notebook')
@@ -33,7 +33,7 @@ mpl.rcParams['agg.path.chunksize'] = 10000
 #  <center>![](images/orthotic2.png)</center> 
 #  
 
-# In[8]:
+# In[13]:
 
 
 n_timesteps = 150
@@ -54,7 +54,7 @@ sensorLabel = ['Accelx, G','Accely, G','Accelz, G','Magnetx, Gauss','Magnety, Ga
 data = np.array(data)
 
 
-# In[10]:
+# In[14]:
 
 
 def f(x):
@@ -67,19 +67,19 @@ def pltsensor(f):
     plt.show()
 
 
-# In[11]:
+# In[15]:
 
 
 interact(pltsensor,f=sensors)
 
 
-# In[ ]:
+# In[21]:
 
 
 data = np.delete(data,[0,1,2,5,7,9,10,11], 2)
 
 
-# In[ ]:
+# In[22]:
 
 
 dataflat = data.reshape(len(data),150*data.shape[2])
@@ -90,7 +90,7 @@ dataflatmat = np.matrix(dataflat)
 cov = (1.0/(150*data.shape[2]))*(dataflatmat.T*dataflatmat)
 
 
-# In[41]:
+# In[23]:
 
 
 plt.close()
@@ -98,7 +98,7 @@ plt.imshow(cov, cmap='seismic', interpolation='nearest');
 plt.colorbar();
 
 
-# In[ ]:
+# In[19]:
 
 
 w,v = np.linalg.eig(cov)
@@ -111,7 +111,7 @@ vec1 = (v[:,0])
 vec2 = (v[:,1])
 
 
-# In[ ]:
+# In[20]:
 
 
 plt.close()
