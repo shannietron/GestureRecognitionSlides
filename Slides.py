@@ -139,6 +139,7 @@ def kalman(x,UD):
 
 
 # # Kalman Filtering
+# <center>![](images/kalman.jpg)</center>
 
 # In[221]:
 
@@ -255,6 +256,7 @@ from sklearn.multiclass import OneVsRestClassifier
 
 # # Random Forest Classifier
 #  <center>![](images/randForest.png)</center>
+#  https://www.researchgate.net/profile/Erika_Amstalden_van_Hove/publication/228540194/figure/fig1/AS:301839783350274@1448975620988/Figure-1-The-Random-Forest-classifier-is-an-ensemble-of-decision-trees-where-the-single.png
 
 # In[163]:
 
